@@ -12,7 +12,7 @@ A personaGen user can choose to generate random personae, or control custom para
 ## Links
 [GitHub Repository](https://github.com/modern-sapien/bootcamp-project-one)
 
-[Depoloyed Site](https://modern-sapien.github.io/bootcamp-project-one/)
+[Depoloyed Site](https://dgtlctzn.github.io/personaGen/)
 ***
 
 ## Usage
