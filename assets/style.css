@@ -108,6 +108,7 @@ h3 {
 
 /* Persona Block */
 /* ================================================================================ */
+
 #persona-image {
   border-radius: 30px;
   display: block;
@@ -122,6 +123,7 @@ h3 {
 
 #persona-block {
   margin: 0px;
+  /* height: 100vh; */
   margin-bottom: 20px;
 }
 
