@@ -240,6 +240,9 @@ th {
 
 .is-warning, .is-danger {
   float: right;
+  margin-top: 8px;
+  margin-right: 5px;
+  width: 80px;
 }
 /* ================================================================================ */
 
