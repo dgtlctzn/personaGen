@@ -61,9 +61,7 @@ $(document).ready(function () {
 
   function displayPersonaKeys() {
     var personaStorageKeys = Object.keys(localStorage);
-    if (personaStorageKeys == null) {
-      console.log("i'm empty");
-    } else {
+    if (!(personaStorageKeys == null)) {
       for (var i = 0; i < personaStorageKeys.length; i++) {
         var personaKeyItem =
           (personaStorageKeys[i],
@@ -169,9 +167,7 @@ $(document).ready(function () {
       gnpContainer.addClass("able");
     }
 
-    if (homeIconContainer.hasClass("active")) {
-      console.log("home button is already active");
-    } else {
+    if (!homeIconContainer.hasClass("active")) {
       homeIconActive();
       hidePersonaPage();
       landingBlock.removeClass("hide");
@@ -189,10 +185,7 @@ $(document).ready(function () {
   });
 
   genNewIcon.on("click", function () {
-    if (gnpContainer.prop("disabled") === true) {
-      console.log("view psa is disabled");
-    } else {
-      console.log("clicked view psa button");
+    if (!gnpContainer.prop("disabled")) {
       landingBlock.addClass("hide");
       personaBlock.removeClass("hide");
       homeIconContainer.removeClass("active");
@@ -313,7 +306,7 @@ $(document).ready(function () {
       setTimeout(function () {
         saveSnack.removeClass("show");
       }, 2000);
-    } 
+    }
   }
 
   function librarySwitchFunc() {
@@ -432,7 +425,6 @@ $(document).ready(function () {
   // THIS CREATE THE FORM THAT IS DISPLAYED
   // ================================
   function formCall() {
-
     // AGE RANGE
     var personaInputAgeLow = $("#age-low-input");
     var personaInputAgeHigh = $("#age-high-input");
@@ -454,7 +446,6 @@ $(document).ready(function () {
     var personaHighAgeVal = $("#age-high-input").val();
     var personaGenderVal = $("#persona-gender-select").val();
     var personaQuoteVal = $("#persona-quote-select").val();
-
 
     generateNewPersona();
   }
