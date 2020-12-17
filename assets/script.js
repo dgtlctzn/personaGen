@@ -336,7 +336,7 @@ $(document).ready(function () {
       tableAge = $("<td>").text(savedPersona.age);
       tableLocation = $("<td>").text(savedPersona.location);
 
-      tableDelete = $("<button class='button tag is-warning'>")
+      tableDelete = $("<button class='button tag is-warning persona-delete'>")
         .text("DELETE")
         .attr("data-attribute", savedPersona.name)
         .attr("data-confirm-switch", "delete");

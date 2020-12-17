@@ -238,7 +238,7 @@ th {
   transform: translate(-50%, -50%);
 }
 
-.is-warning, .is-danger {
+.persona-delete {
   float: right;
   margin-top: 8px;
   margin-right: 5px;
