@@ -1,142 +1,142 @@
 $(document).ready(function () {
-// GLOBAL VARIABLES
-// This controls the collapsibles on the persona page
-var coll = document.getElementsByClassName("collapsible");
-var i;
+  // GLOBAL VARIABLES
+  // This controls the collapsibles on the persona page
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function () {
-    this.classList.toggle("active-col");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      this.classList.toggle("active-col");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+
+  // $(".collapsible").on("click", function() {
+  //   $(this).next().slideToggle();
+  // })
+
+  // ICONS AND BUTTON VARIABLES
+  var randomButton = $("#user-select-random");
+  var userParamsButton = $("#user-select-parameters");
+  var homeIcon = $("#home-icon");
+  var homeIconContainer = $("#home-icon-container");
+  var genNewIcon = $("#view-psa-icon");
+  var gnpContainer = $("#view-psa-icon-container");
+  var saveIcon = $("#save-icon");
+  var saveIconContainer = $("#save-icon-container");
+  var libraryIcon = $("#library-icon");
+  var libraryIconContainer = $("#library-icon-container");
+  var formSubmitBtn = $("#form-submit-btn");
+  var librarySwitch = false;
+  var saveSwitch = false;
+  var personaExistsSwitch = false;
+
+  // TEMPORARY FORM CONTAINER TARGET
+  // var formContainer = $("#form-container");
+
+  // PAGE TARGETING VARIABLES
+  var mainContainer = $("#main-container");
+  var personaBox = $("#persona-box");
+  var personaBlock = $("#persona-block");
+  var libraryBlock = $("#library-table-block");
+  var landingBlock = $("#landing-block");
+  var formBlock = $("#form-block");
+  var clearWarning = $("#clear-warning-block");
+
+  // JOSEPH HARDCODE VARIABLES
+  var userQuoteSelection;
+  var randomStatus = false;
+  // *******************************************
+  // STORAGE VARIABLES AND FUNCTIONS
+  // *******************************************
+  var personaArray = [];
+
+  // THIS HAS BEEN UPDATED
+  displayPersonaKeys();
+
+  function displayPersonaKeys() {
+    var personaStorageKeys = Object.keys(localStorage);
+    if (personaStorageKeys == null) {
+      console.log("i'm empty");
     } else {
-      content.style.display = "block";
-    }
-  });
-}
-
-// $(".collapsible").on("click", function() {
-//   $(this).next().slideToggle();
-// })
-
-// ICONS AND BUTTON VARIABLES
-var randomButton = $("#user-select-random");
-var userParamsButton = $("#user-select-parameters");
-var homeIcon = $("#home-icon");
-var homeIconContainer = $("#home-icon-container");
-var genNewIcon = $("#view-psa-icon");
-var gnpContainer = $("#view-psa-icon-container");
-var saveIcon = $("#save-icon");
-var saveIconContainer = $("#save-icon-container");
-var libraryIcon = $("#library-icon");
-var libraryIconContainer = $("#library-icon-container");
-var formSubmitBtn = $("#form-submit-btn");
-var librarySwitch = false;
-var saveSwitch = false;
-var personaExistsSwitch = false;
-
-// TEMPORARY FORM CONTAINER TARGET
-// var formContainer = $("#form-container");
-
-// PAGE TARGETING VARIABLES
-var mainContainer = $("#main-container");
-var personaBox = $("#persona-box");
-var personaBlock = $("#persona-block");
-var libraryBlock = $("#library-table-block");
-var landingBlock = $("#landing-block");
-var formBlock = $("#form-block");
-var clearWarning = $("#clear-warning-block");
-
-// JOSEPH HARDCODE VARIABLES
-var userQuoteSelection;
-var randomStatus = false;
-// *******************************************
-// STORAGE VARIABLES AND FUNCTIONS
-// *******************************************
-var personaArray = [];
-
-// THIS HAS BEEN UPDATED
-displayPersonaKeys();
-
-function displayPersonaKeys() {
-  var personaStorageKeys = Object.keys(localStorage);
-  if (personaStorageKeys == null) {
-    console.log("i'm empty");
-  } else {
-    for (var i = 0; i < personaStorageKeys.length; i++) {
-      var personaKeyItem =
-        (personaStorageKeys[i],
-        JSON.parse(localStorage.getItem(personaStorageKeys[i])));
-      // console.log(personaKeyItem);
-      personaArray.push(personaKeyItem);
-      console.log(personaArray);
+      for (var i = 0; i < personaStorageKeys.length; i++) {
+        var personaKeyItem =
+          (personaStorageKeys[i],
+          JSON.parse(localStorage.getItem(personaStorageKeys[i])));
+        // console.log(personaKeyItem);
+        personaArray.push(personaKeyItem);
+        console.log(personaArray);
+      }
     }
   }
-}
 
-saveIcon.on("click", function () {
-  var personaName = $("#name-msg-body")[0].childNodes[0].data;
-  var personaImage = $("#persona-image")[0].currentSrc;
-  var personaAge = $("#age-msg-body")[0].childNodes[0].data;
-  var personaGender = $("#gender-msg-body")[0].childNodes[0].data;
-  var personaLocation = $("#location-msg-body")[0].childNodes[0].data;
-  var personaBio = $("#bio-msg-body")[0].childNodes[0].data;
+  saveIcon.on("click", function () {
+    var personaName = $("#name-msg-body")[0].childNodes[0].data;
+    var personaImage = $("#persona-image")[0].currentSrc;
+    var personaAge = $("#age-msg-body")[0].childNodes[0].data;
+    var personaGender = $("#gender-msg-body")[0].childNodes[0].data;
+    var personaLocation = $("#location-msg-body")[0].childNodes[0].data;
+    var personaBio = $("#bio-msg-body")[0].childNodes[0].data;
 
-  var personaKeyItem = {
-    name: personaName,
-    image: personaImage,
-    age: personaAge,
-    gender: personaGender,
-    location: personaLocation,
-    bio: personaBio,
-  };
+    var personaKeyItem = {
+      name: personaName,
+      image: personaImage,
+      age: personaAge,
+      gender: personaGender,
+      location: personaLocation,
+      bio: personaBio,
+    };
 
-  storedPersona = localStorage.setItem(
-    personaName,
-    JSON.stringify(personaKeyItem)
-  );
+    storedPersona = localStorage.setItem(
+      personaName,
+      JSON.stringify(personaKeyItem)
+    );
     personaArray.push(personaKeyItem);
-});
-// ==============
-// Text Generation
-function autoBiography(name, location, interests, quote) {
-  sentenceStructure = {
-    starter: ["Hi my name is ", "Hello my name is ", "Whats up it's "],
-    where: [". I am from ", ". I am originally from ", ". I come from "],
-    interests: [
-      ". I am very interested in ",
-      ". I work in ",
-      ". My biggest passion is ",
-    ],
-    quotes: [
-      ". As I always say, ",
-      ". My favorite quote is ",
-      ". I live by the phrase ",
-    ],
-  };
-  location = location.split(",")[0];
-  var randomWords = Math.floor(
-    Math.random() * sentenceStructure.starter.length
-  );
-  quote = quote[0].toLowerCase() + quote.slice(1);
-  if (quote[quote.length - 1] === ".") {
-    quote = quote.slice(0, quote.length - 1);
+  });
+  // ==============
+  // Text Generation
+  function autoBiography(name, location, interests, quote) {
+    sentenceStructure = {
+      starter: ["Hi my name is ", "Hello my name is ", "Whats up it's "],
+      where: [". I am from ", ". I am originally from ", ". I come from "],
+      interests: [
+        ". I am very interested in ",
+        ". I work in ",
+        ". My biggest passion is ",
+      ],
+      quotes: [
+        ". As I always say, ",
+        ". My favorite quote is ",
+        ". I live by the phrase ",
+      ],
+    };
+    location = location.split(",")[0];
+    var randomWords = Math.floor(
+      Math.random() * sentenceStructure.starter.length
+    );
+    quote = quote[0].toLowerCase() + quote.slice(1);
+    if (quote[quote.length - 1] === ".") {
+      quote = quote.slice(0, quote.length - 1);
+    }
+    var finalText =
+      sentenceStructure.starter[randomWords] +
+      name +
+      sentenceStructure.where[randomWords] +
+      location +
+      sentenceStructure.interests[randomWords] +
+      interests +
+      sentenceStructure.quotes[randomWords] +
+      quote +
+      ".";
+    return finalText;
   }
-  var finalText =
-    sentenceStructure.starter[randomWords] +
-    name +
-    sentenceStructure.where[randomWords] +
-    location +
-    sentenceStructure.interests[randomWords] +
-    interests +
-    sentenceStructure.quotes[randomWords] +
-    quote +
-    ".";
-  return finalText;
-}
 
-// FUNCTION
+  // FUNCTION
 
   // =====================================================================
   //  GLOBAL EVENT LISTENERS
@@ -244,7 +244,6 @@ function autoBiography(name, location, interests, quote) {
     libraryDelete1.removeClass("button is-warning");
     libraryDelete2.addClass("button is-danger");
     libraryDelete2.removeClass("hide");
-
   });
 
   libraryDelete2.on("click", function () {
@@ -253,9 +252,9 @@ function autoBiography(name, location, interests, quote) {
     localStorage.clear();
     personaArray = [];
     console.log(personaArray);
-    libraryDelete2.addClass("hide")
+    libraryDelete2.addClass("hide");
     libraryDelete2.removeClass("button is-danger");
-    libraryDelete1.addClass("button is-warning")
+    libraryDelete1.addClass("button is-warning");
     libraryDelete1.removeClass("hide");
   });
 
@@ -335,7 +334,6 @@ function autoBiography(name, location, interests, quote) {
       personaBlock.addClass("hide");
       libraryBlock.removeClass("hide");
       librarySwitch = true;
-
     } else {
       personaBlock.removeClass("hide");
       libraryBlock.addClass("hide");
@@ -347,77 +345,75 @@ function autoBiography(name, location, interests, quote) {
   // GENERATING STORAGE INTO LIBRARY FOLDER
   // ==========================================================================================================================================================================
   function generateLibrary() {
+    // console.log("here now")
     $("#table-body").empty();
-    for (var i = 0; i < personaArray.length; i++) {
+    const savedPersonas = Object.values(localStorage);
+    console.log("here")
+    for (var i = 0; i < savedPersonas.length; i++) {
+      const savedPersona = JSON.parse(savedPersonas[i]);
       tableDiv = $("<div>");
       tableRow = $("<tr>");
-      tableRow.attr("data-attribute", personaArray[i].name);
-      tableName = $("<td>").text(personaArray[i].name);
-      tableAge = $("<td>").text(personaArray[i].age);
-      tableLocation = $("<td>").text(personaArray[i].location);
+      tableRow.attr("data-attribute", savedPersona.name);
+      tableName = $("<td>").text(savedPersona.name);
+      tableAge = $("<td>").text(savedPersona.age);
+      tableLocation = $("<td>").text(savedPersona.location);
 
-      tableDelete = $("<div class='button tag is-warning'>"
-      ).text("DELETE").attr("data-attribute", personaArray[i].name).attr("data-confirm-switch", "delete");
+      tableDelete = $("<button class='button tag is-warning'>")
+        .text("DELETE")
+        .attr("data-attribute", savedPersona.name)
+        .attr("data-confirm-switch", "delete");
 
       tableRow.append(tableName, tableAge, tableLocation);
       tableDiv.append(tableRow, tableDelete);
       $("#table-body").append(tableDiv);
       tableRow.on("click", function () {
-      console.log($(this)[0].attributes[0].nodeValue)
-      if (personaStorageKey = $(this)[0].attributes[0].nodeValue) {
-      searchPersonaStorage = JSON.parse(localStorage.getItem(personaStorageKey));
+        console.log($(this)[0].attributes[0].nodeValue);
+        if ((personaStorageKey = $(this)[0].attributes[0].nodeValue)) {
+          searchPersonaStorage = JSON.parse(
+            localStorage.getItem(personaStorageKey)
+          );
 
-        libraryBlock.addClass("hide");
-        libraryIconContainer.removeClass("active");
-        libraryIconContainer.addClass("able");
-        personaBlock.removeClass("hide");
-        gnpContainer.removeClass("able");
-        gnpContainer.removeClass("disabled");
-        gnpContainer.prop("disabled", false);
-        gnpContainer.addClass("active");
+          libraryBlock.addClass("hide");
+          libraryIconContainer.removeClass("active");
+          libraryIconContainer.addClass("able");
+          personaBlock.removeClass("hide");
+          gnpContainer.removeClass("able");
+          gnpContainer.removeClass("disabled");
+          gnpContainer.prop("disabled", false);
+          gnpContainer.addClass("active");
 
-        personaExistsSwitch = true;
+          personaExistsSwitch = true;
 
-        $("#name-msg-body").text(searchPersonaStorage.name);
-        $("#age-msg-body").text(searchPersonaStorage.age);
-        $("#gender-msg-body").text(searchPersonaStorage.gender);
-        $("#location-msg-body").text(searchPersonaStorage.location);
-        $("#bio-msg-body").text(searchPersonaStorage.bio);
-        $("#persona-image").attr("src", searchPersonaStorage.image);
+          $("#name-msg-body").text(searchPersonaStorage.name);
+          $("#age-msg-body").text(searchPersonaStorage.age);
+          $("#gender-msg-body").text(searchPersonaStorage.gender);
+          $("#location-msg-body").text(searchPersonaStorage.location);
+          $("#bio-msg-body").text(searchPersonaStorage.bio);
+          $("#persona-image").attr("src", searchPersonaStorage.image);
         }
-      })
+      });
 
-        tableDelete.on("click", function () {
-        console.log($(this)[0].previousSibling.attributes[0].nodeValue)
-        console.log($(this)[0].attributes[2].nodeValue);
-        if (($(this)[0].attributes[2].nodeValue) === 'delete')  {
-          var personaDeleteName = (($(this)[0].previousSibling.attributes[0].nodeValue))
-          console.log(($(this)[0].previousSibling.attributes[0].nodeValue))
-          console.log(personaDeleteName + "   YOU'RE ON YOUR WAY!");
-          console.log($(this));
+      tableDelete.on("click", function () {
+        console.log($(this).attr("data-attribute"))
+        if ($(this)[0].attributes[2].nodeValue === "delete") {
+          console.log("if")
+          var personaDeleteName = $(this).attr("data-attribute");
           $(this).removeClass("is-warning");
           $(this).addClass("is-danger");
           $(this).text("CONFIRM");
-
-          var personaStorageKeys = Object.keys(localStorage)
-          for (var m = 0; m < personaStorageKeys.length; m++)
-          {
-          if (personaArray[m].name === personaDeleteName)  { 
-          localStorage.removeItem(personaDeleteName)
-          personaArray.splice(personaStorageKeys[m], 1)
-          console.log(personaArray)
+          $(this).attr("data-confirm-switch", "remove");
+        } else {
+          var personaStorageKeys = Object.keys(localStorage);
+          for (var m = 0; m < personaStorageKeys.length; m++) {
+            if (personaArray[m].name === $(this).attr("data-attribute")) {
+              localStorage.removeItem($(this).attr("data-attribute"));
+            }
           }
-          
-          }
-          generateLibrary()
+          generateLibrary();
         }
-      })
-
+      });
     }
-  };
-       
-  
-    
+  }
 
   function resetState() {
     //hide library, show landing page
@@ -528,7 +524,10 @@ function autoBiography(name, location, interests, quote) {
     }
     // api parameter selects nationality
     var personaNationSelect = $("#persona-nation-select").val();
-    if (personaNationSelect !== "interest-test-val-0" && randomStatus === false) {
+    if (
+      personaNationSelect !== "interest-test-val-0" &&
+      randomStatus === false
+    ) {
       if (randomMeURL.includes("?")) {
         randomMeURL = randomMeURL + "&nat=" + personaNationSelect;
       } else {
