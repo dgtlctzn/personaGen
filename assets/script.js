@@ -68,9 +68,7 @@ $(document).ready(function () {
         var personaKeyItem =
           (personaStorageKeys[i],
           JSON.parse(localStorage.getItem(personaStorageKeys[i])));
-        // console.log(personaKeyItem);
         personaArray.push(personaKeyItem);
-        console.log(personaArray);
       }
     }
   }
@@ -150,7 +148,6 @@ $(document).ready(function () {
   });
 
   userParamsButton.on("click", function () {
-    console.log("form call called");
     //Hide landing page
     hideLandingPage();
 
@@ -178,10 +175,7 @@ $(document).ready(function () {
       homeIconActive();
       hidePersonaPage();
       landingBlock.removeClass("hide");
-      // gnpContainer.removeClass("active");
-      // gnpContainer.addClass("able");
       libraryBlock.addClass("hide");
-      console.log("clicked home button");
       if (libraryIconContainer.hasClass("active")) {
         libraryIconContainer.removeClass("active");
         libraryIconContainer.addClass("able");
@@ -190,7 +184,6 @@ $(document).ready(function () {
   });
 
   formSubmitBtn.on("click", function () {
-    console.log("form submitted");
     formBlock.addClass("hide");
     generateNewPersona();
   });
@@ -216,7 +209,6 @@ $(document).ready(function () {
 
   libraryIcon.on("click", function () {
     $("#table-body").empty();
-    console.log(personaArray);
     generateLibrary();
     librarySwitchFunc();
     homeIconContainer.removeClass("active");
@@ -239,7 +231,6 @@ $(document).ready(function () {
   var libraryDelete2 = $("#library-confirm");
 
   libraryDelete1.on("click", function () {
-    console.log("Hello world");
     libraryDelete1.addClass("hide");
     libraryDelete1.removeClass("button is-warning");
     libraryDelete2.addClass("button is-danger");
@@ -247,11 +238,9 @@ $(document).ready(function () {
   });
 
   libraryDelete2.on("click", function () {
-    console.log("need to build library delete");
     $("#table-body").empty();
     localStorage.clear();
     personaArray = [];
-    console.log(personaArray);
     libraryDelete2.addClass("hide");
     libraryDelete2.removeClass("button is-danger");
     libraryDelete1.addClass("button is-warning");
@@ -316,9 +305,7 @@ $(document).ready(function () {
   });
 
   function saveSnackbar() {
-    if (document.getElementById("save-icon-container").disabled) {
-      console.log("Save button is disabled.");
-    } else {
+    if (!document.getElementById("save-icon-container").disabled) {
       var saveSnack = $("#save-snack");
       saveSnack.addClass("show");
 
@@ -326,7 +313,7 @@ $(document).ready(function () {
       setTimeout(function () {
         saveSnack.removeClass("show");
       }, 2000);
-    }
+    } 
   }
 
   function librarySwitchFunc() {
@@ -345,10 +332,8 @@ $(document).ready(function () {
   // GENERATING STORAGE INTO LIBRARY FOLDER
   // ==========================================================================================================================================================================
   function generateLibrary() {
-    // console.log("here now")
     $("#table-body").empty();
     const savedPersonas = Object.values(localStorage);
-    console.log("here")
     for (var i = 0; i < savedPersonas.length; i++) {
       const savedPersona = JSON.parse(savedPersonas[i]);
       tableDiv = $("<div>");
@@ -367,7 +352,6 @@ $(document).ready(function () {
       tableDiv.append(tableRow, tableDelete);
       $("#table-body").append(tableDiv);
       tableRow.on("click", function () {
-        console.log($(this)[0].attributes[0].nodeValue);
         if ((personaStorageKey = $(this)[0].attributes[0].nodeValue)) {
           searchPersonaStorage = JSON.parse(
             localStorage.getItem(personaStorageKey)
@@ -394,10 +378,7 @@ $(document).ready(function () {
       });
 
       tableDelete.on("click", function () {
-        console.log($(this).attr("data-attribute"))
         if ($(this)[0].attributes[2].nodeValue === "delete") {
-          console.log("if")
-          var personaDeleteName = $(this).attr("data-attribute");
           $(this).removeClass("is-warning");
           $(this).addClass("is-danger");
           $(this).text("CONFIRM");
@@ -441,11 +422,6 @@ $(document).ready(function () {
     $("library-confirm").addClass("hide");
   }
 
-  function clearStorage() {
-    // localStorage.clear();
-    console.log("storage cleared");
-  }
-
   // =====================================================================
 
   // =====================================================================
@@ -456,56 +432,32 @@ $(document).ready(function () {
   // THIS CREATE THE FORM THAT IS DISPLAYED
   // ================================
   function formCall() {
-    console.log("FORM GENERATION, CALLED");
 
     // AGE RANGE
     var personaInputAgeLow = $("#age-low-input");
-    console.log(personaInputAgeLow.val());
     var personaInputAgeHigh = $("#age-high-input");
-    console.log(personaInputAgeHigh.val());
     // GENDER SELECT
     var personaGenderSelect = $("#persona-gender-select");
-    console.log(personaGenderSelect.val());
     // PROFESSION INPUT
     var personaProfessionInput = $("#persona-profession-input");
-    console.log(personaProfessionInput.val());
     // INTEREST SELECT
     var personaNationSelect = $("#persona-nation-select");
-    console.log(personaNationSelect.val());
     // QUOTE SELECT
     var personaQuoteSelect = $("#persona-quote-select");
-    console.log(personaQuoteSelect.val());
 
     //TARGETING FORM VALUES
     var submitGenerate = $("#user-select-parameters"); //SUBMIT BUTTON
     var personaForm = $("#persona-form");
 
     // EVENT LISTENER FOR FORM
-    // submitGenerate.on("click", function (event) {
-    console.log("this button is working");
     var personaLowAgeVal = $("#age-low-input").val();
     var personaHighAgeVal = $("#age-high-input").val();
     var personaGenderVal = $("#persona-gender-select").val();
     var personaQuoteVal = $("#persona-quote-select").val();
-    //  var personaInterestVal = $("#persona-interest-select").val();
-    //  personaJobVal = $("#persona-profession-input").val();
-    // CONSOLE LOGGING VALUES OF INPUTS
-    console.log("this click button is working");
-    console.log(personaLowAgeVal);
-    console.log(personaHighAgeVal);
-    console.log(personaGenderVal);
-    console.log(personaQuoteVal);
-    // console.log(personaInterestVal);
-    // console.log(personaJobVal);
+
 
     generateNewPersona();
-    // formContainer.empty();
-
-    // event.preventDefault();
-    //  originalUserCall();
-    // });
   }
-
   // ================================
   // ================================
   //                  NEW USER CALL
