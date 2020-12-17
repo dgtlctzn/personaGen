@@ -329,7 +329,7 @@ $(document).ready(function () {
     const savedPersonas = Object.values(localStorage);
     for (var i = 0; i < savedPersonas.length; i++) {
       const savedPersona = JSON.parse(savedPersonas[i]);
-      tableDiv = $("<div>");
+      // tableDiv = $("<div>");
       tableRow = $("<tr>");
       tableRow.attr("data-attribute", savedPersona.name);
       tableName = $("<td>").text(savedPersona.name);
@@ -341,9 +341,9 @@ $(document).ready(function () {
         .attr("data-attribute", savedPersona.name)
         .attr("data-confirm-switch", "delete");
 
-      tableRow.append(tableName, tableAge, tableLocation);
-      tableDiv.append(tableRow, tableDelete);
-      $("#table-body").append(tableDiv);
+      tableRow.append(tableName, tableAge, tableLocation, tableDelete);
+      $("#table-body").append(tableRow);
+      // $("#table-body").append(tableDiv);
       tableRow.on("click", function () {
         if ((personaStorageKey = $(this)[0].attributes[0].nodeValue)) {
           searchPersonaStorage = JSON.parse(
@@ -370,7 +370,8 @@ $(document).ready(function () {
         }
       });
 
-      tableDelete.on("click", function () {
+      tableDelete.on("click", function (event) {
+        event.stopPropagation()
         if ($(this)[0].attributes[2].nodeValue === "delete") {
           $(this).removeClass("is-warning");
           $(this).addClass("is-danger");
